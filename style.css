@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f4f6fb;
+}
+
+/* NAVBAR */
+.navbar {
+    background: linear-gradient(45deg, #ff9800, #ff5722);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.navbar input {
+    width: 300px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+}
+
+.cart-btn {
+    background: white;
+    color: #ff5722;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* BANNER */
+.banner {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff3e0;
+}
+
+/* PRODUCTS */
+.products {
+    padding: 40px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+}
+
+.img-placeholder {
+    height: 140px;
+    background: #eee;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+}
+
+.product-card button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(45deg,#ff9800,#ff5722);
+    color: white;
+    cursor: pointer;
+}
+
+/* CART */
+.cart-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-content {
+    background: white;
+    width: 350px;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.cart-content ul {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.cart-content li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+/* FOOTER */
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}

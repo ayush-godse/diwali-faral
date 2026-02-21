@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diwali Faral Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div>Gauri godse</div>
+    <p>
+        adress-Ashok nagar bhingardive mala ,gulmohor road ,Ahilyanagar
+    </p>
+    
+</header>
+
+<!-- BANNER -->
+<section class="banner">
+     <input type="text" id="searchInput" placeholder="Search faral..." onkeyup="searchProduct()">
+
+    <button class="cart-btn" onclick="openCart()">
+        🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+    <h1>Celebrate Diwali with Homemade Faral</h1>
+    <p>Authentic taste • Festive freshness • Made with love</p>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+    <h2>Our Special Faral</h2>
+
+    <div class="product-grid" id="productGrid">
+
+        <!-- PRODUCT -->
+        <div class="product-card" data-name="chakli">
+            <div class="img-placeholder">IMAGE HERE</div>
+            <h3>Chakli</h3>
+            <p>Price: ADD PRICE HERE</p>
+            <button onclick="addToCart('Chakli')">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-name="ladoo">
+            <div class="img-placeholder">IMAGE HERE</div>
+            <h3>Ladoo</h3>
+            <p>Price: ADD PRICE HERE</p>
+            <button onclick="addToCart('Ladoo')">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-name="shankarpale">
+            <div class="img-placeholder">IMAGE HERE</div>
+            <h3>Shankarpale</h3>
+            <p>Price: ADD PRICE HERE</p>
+            <button onclick="addToCart('Shankarpale')">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-name="chivda">
+            <div class="img-placeholder">IMAGE HERE</div>
+            <h3>Chivda</h3>
+            <p>Price: ADD PRICE HERE</p>
+            <button onclick="addToCart('Chivda')">Add to Cart</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- CART MODAL -->
+<div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+        <h2>Your Cart</h2>
+        <ul id="cartItems"></ul>
+        <p class="total">Total: ADD TOTAL PRICE HERE</p>
+        <button onclick="closeCart()">Close</button>
+    </div>
+</div>
+
+<footer>
+    © 2025 Diwali Faral Store | Happy Diwali 🪔
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
