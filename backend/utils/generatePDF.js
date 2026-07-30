@@ -14,7 +14,7 @@ const generateInvoice = (order, filePath) => {
       doc
         .fillColor('#ff5722')
         .fontSize(25)
-        .text('INVOICE', { align: 'center' })
+        .text('BILL', { align: 'center' })
         .moveDown();
 
       doc
@@ -22,7 +22,7 @@ const generateInvoice = (order, filePath) => {
         .fontSize(20)
         .text('Gauri Godse Diwali Faral Store', { align: 'center' })
         .fontSize(10)
-        .text('Ashok Nagar, Ahilyanagar', { align: 'center' })
+        .text('plotno 32 Ashok Nagar Savedi, Ahilyanagar', { align: 'center' })
         .moveDown();
 
       doc.moveTo(50, 160).lineTo(550, 160).stroke('#eeeeee');
@@ -33,6 +33,8 @@ const generateInvoice = (order, filePath) => {
         .fillColor('#000000')
         .text(`Order ID: ${order.orderId}`, 50, 180)
         .text(`Date: ${new Date(order.createdAt).toLocaleString()}`, 50, 195)
+        .text(`Payment: ${order.paymentStatus.toUpperCase()}`, 350, 180)
+        .text(`TXN: ${order.transactionId || 'N/A'}`, 350, 195)
         .moveDown();
 
       // Customer Info

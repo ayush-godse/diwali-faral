@@ -1,0 +1,38 @@
+# Render deployment template for Diwali Faral
+# Replace <GIT_REPO> with your GitHub repo full name (e.g. user/diwali-faral)
+# After pushing this file to your repo, you can import with Render "Import from Git" and it will detect services.
+
+services:
+  - type: web
+    name: diwali-faral-backend
+    env: docker
+    repo: <GIT_REPO>
+    branch: main
+    dockerfilePath: backend/Dockerfile
+    buildCommand: ""
+    startCommand: "node server.js"
+    envVars:
+      - key: MONGO_URI
+        value: "<YOUR_MONGO_URI>"
+      - key: JWT_SECRET
+        value: "<YOUR_JWT_SECRET>"
+      - key: EMAIL_USER
+        value: "<YOUR_EMAIL>"
+      - key: EMAIL_PASS
+        value: "<YOUR_EMAIL_PASS>"
+      - key: FRONTEND_URL
+        value: "https://<your-frontend-domain>"
+
+staticSites:
+  - name: diwali-faral-frontend
+    repo: <GIT_REPO>
+    branch: main
+    buildCommand: "cd frontend && npm install && npm run build"
+    publishPath: frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: "https://<your-backend-domain>/api"
+
+# Note:
+# - Replace placeholders before importing on Render or set environment variables via the Render dashboard.
+# - You can also host the frontend on Vercel (recommended for ease) and only deploy backend to Render.

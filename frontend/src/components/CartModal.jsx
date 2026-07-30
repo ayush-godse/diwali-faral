@@ -1,5 +1,5 @@
 function CartModal({ cart, total, onClose, onRemove, onUpdateQty, onCheckout }) {
-  const items = Object.values(cart)
+  const cartEntries = Object.entries(cart)
 
   return (
     <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
@@ -9,24 +9,24 @@ function CartModal({ cart, total, onClose, onRemove, onUpdateQty, onCheckout }) 
           <button className="close-btn" onClick={onClose}>✕</button>
         </div>
 
-        {items.length === 0 ? (
+        {cartEntries.length === 0 ? (
           <p className="cart-empty">Your cart is empty 🪔<br/>Add some faral!</p>
         ) : (
           <>
             <ul className="cart-items" id="cartItems">
-              {items.map(({ product, quantity }) => (
-                <li className="cart-item" key={product._id}>
+              {cartEntries.map(([key, { product, quantity, selectedWeight }]) => (
+                <li className="cart-item" key={key}>
                   <span className="cart-item-emoji">{product.emoji}</span>
                   <div className="cart-item-info">
-                    <strong>{product.name}</strong>
+                    <strong>{product.name} ({selectedWeight})</strong>
                     <span>₹{product.price} × {quantity} = ₹{product.price * quantity}</span>
                   </div>
                   <div className="qty-controls">
-                    <button className="qty-btn" onClick={() => onUpdateQty(product._id, -1)}>−</button>
+                    <button className="qty-btn" onClick={() => onUpdateQty(key, -1)}>−</button>
                     <span className="qty">{quantity}</span>
-                    <button className="qty-btn" onClick={() => onUpdateQty(product._id, +1)}>+</button>
+                    <button className="qty-btn" onClick={() => onUpdateQty(key, +1)}>+</button>
                   </div>
-                  <button className="remove-btn" onClick={() => onRemove(product._id)} title="Remove">❌</button>
+                  <button className="remove-btn" onClick={() => onRemove(key)} title="Remove">❌</button>
                 </li>
               ))}
             </ul>
