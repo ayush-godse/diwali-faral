@@ -3,6 +3,7 @@ const router = express.Router();
 const Order = require('../models/Order');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
+const os = require('os');
 const fs = require('fs');
 const generateInvoice = require('../utils/generatePDF');
 const sendEmail = require('../utils/sendEmail');
@@ -26,7 +27,7 @@ router.post('/order-success', protect, async (req, res) => {
     await order.save();
 
     const fileName = `invoice_${order.orderId}.pdf`;
-    const filePath = path.join(__dirname, '../invoices', fileName);
+    const filePath = path.join(os.tmpdir(), fileName);
 
     // Generate PDF
     await generateInvoice(order, filePath);

@@ -24,9 +24,19 @@ if (!process.env.MONGO_URI) {
 app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 app.use(express.json());
 
-// simple request logger to help debug which server instance handles requests
-app.use((req, res, next) => {
-  console.log(`➡️ [${process.pid}] ${req.method} ${req.originalUrl}`);
+// Ensure MongoDB is connected for serverless environments
+const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return;
+  try {
+    await mongoose.connect(MONGO_URI);
+    console.log('✅ MongoDB connected');
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err.message);
+  }
+};
+
+app.use(async (req, res, next) => {
+  await connectDB();
   next();
 });
 
@@ -35,20 +45,20 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/users', userRoutes);
 
+app.get('/api', (req, res) => {
+  res.json({ message: '🪔 Diwali Faral API is running!' });
+});
 app.get('/', (req, res) => {
   res.json({ message: '🪔 Diwali Faral API is running!' });
 });
 
-// Connect to MongoDB
-mongoose.connect(MONGO_URI)
-  .then(async () => {
-    console.log('✅ MongoDB connected');
-    if (process.env.NODE_ENV !== 'production') {
-      await seedProductsIfEmpty();
-      await seedAdminIfNotExists();
-    }
-  })
-  .catch(err => console.error('❌ MongoDB connection error:', err));
+// Seed data on startup if needed
+connectDB().then(async () => {
+  if (process.env.NODE_ENV !== 'production') {
+    await seedProductsIfEmpty();
+    await seedAdminIfNotExists();
+  }
+});
 
 // Start server locally
 if (require.main === module) {
@@ -57,4 +67,5 @@ if (require.main === module) {
   });
 }
 
+// Export the app for Vercel Serverless
 module.exports = app;

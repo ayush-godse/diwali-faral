@@ -2,6 +2,9 @@
   "name": "diwali-faral-root",
   "version": "1.0.0",
   "description": "Root for Diwali Faral MERN App",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "install-backend": "cd backend && npm install",
