@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './UserProfile.css'
+import { apiUrl } from '../api'
 
 function UserProfile({ user, onClose, onUpdateUser }) {
   const [activeTab, setActiveTab] = useState('orders')
@@ -20,7 +21,7 @@ function UserProfile({ user, onClose, onUpdateUser }) {
   const fetchProfileData = async () => {
     setLoading(true)
     try {
-      const res = await fetch('/api/users/profile', { headers })
+      const res = await fetch(apiUrl('/users/profile'), { headers })
       const data = await res.json()
       if (data.success) {
         setOrders(data.data.orders)
@@ -44,7 +45,7 @@ function UserProfile({ user, onClose, onUpdateUser }) {
     }
 
     try {
-      const res = await fetch('/api/users/addresses', {
+      const res = await fetch(apiUrl('/users/addresses'), {
         method: 'POST',
         headers,
         body: JSON.stringify(newAddr)
@@ -62,7 +63,7 @@ function UserProfile({ user, onClose, onUpdateUser }) {
 
   const deleteAddress = async (id) => {
     try {
-      const res = await fetch(`/api/users/addresses/${id}`, {
+      const res = await fetch(apiUrl(`/users/addresses/${id}`), {
         method: 'DELETE',
         headers
       })

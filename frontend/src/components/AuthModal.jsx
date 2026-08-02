@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { apiUrl } from '../api';
 
 function AuthModal({ onClose, onAuthSuccess, forceLanding = false }) {
   const [isLogin, setIsLogin] = useState(!forceLanding);
@@ -11,7 +12,7 @@ function AuthModal({ onClose, onAuthSuccess, forceLanding = false }) {
     setLoading(true);
     setError('');
 
-    const url = isLogin ? '/api/users/login' : '/api/users/register';
+    const url = isLogin ? apiUrl('/users/login') : apiUrl('/users/register');
     try {
       const res = await fetch(url, {
         method: 'POST',

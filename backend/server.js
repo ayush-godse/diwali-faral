@@ -14,14 +14,27 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 // Allow configuring the frontend origin via env var for production deployments
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+const FRONTEND_ORIGINS = (process.env.FRONTEND_URL || 'http://localhost:5173')
+  .split(',')
+  .map(origin => origin.trim())
+  .filter(Boolean);
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/diwali-faral';
 
 if (!process.env.MONGO_URI) {
   console.warn('⚠️  MONGO_URI is not set. Falling back to local MongoDB at', MONGO_URI);
 }
 
-app.use(cors({ origin: FRONTEND_URL, credentials: true }));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || FRONTEND_ORIGINS.includes(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 // Ensure MongoDB is connected for serverless environments

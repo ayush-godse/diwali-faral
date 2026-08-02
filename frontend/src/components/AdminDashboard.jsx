@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './AdminDashboard.css'
+import { apiUrl } from '../api'
 
 function AdminDashboard({ user, onClose }) {
   const [activeTab, setActiveTab] = useState('orders')
@@ -22,7 +23,7 @@ function AdminDashboard({ user, onClose }) {
   const fetchOrders = async () => {
     setLoading(true)
     try {
-      const res = await fetch('/api/orders', { headers })
+      const res = await fetch(apiUrl('/orders'), { headers })
       const data = await res.json()
       if (data.success) setOrders(data.data)
     } catch (err) {
@@ -35,7 +36,7 @@ function AdminDashboard({ user, onClose }) {
   const fetchProducts = async () => {
     setLoading(true)
     try {
-      const res = await fetch('/api/products')
+      const res = await fetch(apiUrl('/products'))
       const data = await res.json()
       if (data.success) setProducts(data.data)
     } catch (err) {
@@ -47,7 +48,7 @@ function AdminDashboard({ user, onClose }) {
 
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
-      const res = await fetch(`/api/orders/${orderId}/status`, {
+      const res = await fetch(apiUrl(`/orders/${orderId}/status`), {
         method: 'PUT',
         headers,
         body: JSON.stringify({ status: newStatus })
@@ -64,7 +65,7 @@ function AdminDashboard({ user, onClose }) {
   const deleteProduct = async (id) => {
     if (!window.confirm('Are you sure you want to delete this product?')) return
     try {
-      const res = await fetch(`/api/products/${id}`, {
+      const res = await fetch(apiUrl(`/products/${id}`), {
         method: 'DELETE',
         headers
       })
@@ -90,7 +91,7 @@ function AdminDashboard({ user, onClose }) {
     }
 
     const method = editingProduct ? 'PUT' : 'POST'
-    const url = editingProduct ? `/api/products/${editingProduct._id}` : '/api/products'
+    const url = editingProduct ? apiUrl(`/products/${editingProduct._id}`) : apiUrl('/products')
 
     try {
       const res = await fetch(url, {
